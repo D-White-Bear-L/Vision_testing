@@ -1,0 +1,86 @@
+.container{
+    position: absolute;
+    display: flex;
+    /* 将容器的宽度和高度分别设置为视口宽度和视口高度的 100% */
+    width: 100vw;
+    height: 100vh;
+    background-image: url(./picture-css/background4.jpg);
+    background-size: cover;
+    /*会被拉伸或压缩以填充整个背景区域,可能部分裁剪掉 */
+    background-repeat: no-repeat;
+    /*不会在页面上重复出现*/
+    background-position: center;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+}
+
+
+.login-box{
+    background-color: #00000068;
+    /* text-align: center;/*居中 */
+    /* margin: 0px auto; */
+    /* margin-top: 30px; */
+    /* width: 550px;
+    height: 400px;  */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* 竖轴 */
+    align-items: center;
+    width: 40%;
+    height: 70%;
+}
+
+.login-box h1{
+    padding-top: 5%;
+    color: #fff;
+}
+
+
+.login-box .input-box{
+    margin-top: 30px;/*间距*/
+    color: #ffffff;
+    font-size: larger;
+}
+
+/* 输入框样式 */
+.login-box .input-box input{
+    width: 200px;
+    border: none;
+    background: none;
+    border-bottom: #ffffff 2px solid;
+    padding: 5px 10px;
+    outline: none;
+    color: #ffffff;
+}
+
+/* 设置输入框内字体 */
+.input-box input[type="text"]::placeholder {
+    color: #b3b3b3;
+    font-size: medium;
+}
+
+/* 按钮样式 */
+.login-box button{
+    margin-top: 30px;
+    width: 100px;
+    height: 40px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    outline: none;
+    background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
+    color: #ffffff;
+}
+
+/* 按钮反馈 */
+.login-box button:hover{
+    background-image: linear-gradient(to right, #92fe9d 0%, #00c9ff 100%);
+}
+
+.login-box h3{
+    margin-top: 1%;
+    color: #92fe9d;
+    font-size:medium;
+}

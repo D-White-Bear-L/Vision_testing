@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./text2.css">
+
+    </style>
+</head>
+<body>
+    <div class="Container">
+        <div class="container">
+            <div class="picture">
+                <!-- 图片显示的容器 -->
+                <img id="image-container" src="./picture-css/loding2.gif" alt="轮播图片" style="height: 700px;width: 700px;">
+            </div>
+            <div>
+            </div>
+            <div class="video">
+                <div class="score">
+                    <h1 id="level">视力值:4.6</h1>
+                </div>
+                <div id="video_container">
+                    <div id="video"></div>
+                </div>
+                <div class="box2">
+                    <a id="startButton" class="btn-1">
+                        <button id="start">
+                            开始测试
+                        </button>
+                    </a>
+                    <a class="btn-1">
+                        <button id="break">
+                            提前结束
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        
+    
+        <div class="model-box">
+            <div class="box">
+                <h1>模式选择</h1>
+                <a class="btn" id="teach" onclick="set('已切换至【示教】模式')">
+                    <button>
+                        【示教】模式
+                    </button>
+                </a>
+                <a class="btn" id="rightHand" onclick="set('已切换至【右手】手势模式')">
+                    <button>
+                        【右手】手部模式
+                    </button>
+                </a>
+                <a class="btn" id="leftHand" onclick="set('已切换至【左手】手势模式')">
+                    <button >
+                        【左手】手部模式
+                    </button>
+                </a>
+                <a class="btn" id="speak" onclick="set('已切换至【语音】模式')">
+                    <button>
+                        【语音】模式
+                    </button>
+                </a>
+                <!-- <a class="btn" id="leftHand" onclick="set('已切换至【指尖识别】模式')">
+                    <button>
+                        【指尖识别】模式
+                    </button>
+                </a> -->
+                <!-- <a href="./login.html"><button>解救风扇</button></a> -->
+            </div>
+        </div>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <div class="content">
+                    <h1><智能视力检测结果></h1>
+                    <b id="p"></b>
+                    <h2 id="pageTitle"></h2>
+                    <img src="picture-css/变化曲线1.png" alt="">
+                    <div class="btn-2">
+                        <a href="./text2.html">
+                            <button id="done-yes">确认</button>
+                        </a>
+                        <a href="./login.html">
+                            <button id="done-break">退出</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        let a = 0, b = 0, c = 0, d = 0, e = 0, f = 0, g = 0, h = 0, i = 0, j = 0, k = 0, l = 0, m = 0, n = 0;
+        let level=46
+        let correct_count = 0
+        let wrong_count = 0
+        let count = [a,b,c,d,e,f,g,h,i,j,k,l,m,n]
+        let flag = ['Right','Left','Up','Down']
+        let size = ["730px", "580px", "460px", "360px", "290px", "230px", "180px", "150px", "120px", "90px", "70px", "60px", "50px", "40px"]
+        current_size_index = 6
+        width = size[current_size_index]
+        // console.log(count)
+        let randomIndex = '-1'
+    </script>
+
+    <script>
+    //弹窗的
+    // 声明一个变量并赋值
+    var pageTitle = `您的视力值为 ${level/10}`;
+
+    // 使用变量设置 h1 标签的内容
+    document.getElementById("pageTitle").innerText = pageTitle;
+    
+    var p ='您已完成视力检测！感谢您的使用！'
+    // 使用变量设置 h2 标签的内容
+    document.getElementById("p").innerText = p;
+    var experience=0
+    var image1Path= './picture/eUp.jpg'
+    </script>
+
+    
+    <script>
+        let dataFromFrontend = ""; // 全局变量用于存储前端发送的数据
+        // 模式选择
+        document.getElementById("leftHand").addEventListener("click", function() {
+        const socket = new WebSocket("ws://localhost:8767");
+        socket.onopen = function() {
+            console.log("已连接");
+            const data = "1";
+            dataFromFrontend = data; // 将数据存储在全局变量中
+
+            // 在接收到终端响应后再刷新页面
+            socket.onmessage = function(event) {
+                // 处理终端响应
+                console.log("收到终端响应:", event.data);
+                location.reload(); // 刷新页面
+            };
+
+            socket.send(data);
+            };
+        });
+        document.getElementById("rightHand").addEventListener("click",function(){
+            const socket =new WebSocket("ws://localhost:8767");
+            socket.onopen = function(){
+                //发送参数给终端
+                console.log("已连接");
+                const data = "2";
+                dataFromFrontend = data; // 将数据存储在全局变量中
+                // 在接收到终端响应后再刷新页面
+                socket.onmessage = function(event) {
+                    // 处理终端响应
+                    console.log("收到终端响应:", event.data);
+                    location.reload(); // 刷新页面
+                };
+
+                socket.send(data);
+                };
+            });
+        document.getElementById("speak").addEventListener("click",function(){
+            const socket =new WebSocket("ws://localhost:8767");
+            socket.onopen = function(){
+                //发送参数给终端
+                console.log("已连接");
+                const data = "3";
+                dataFromFrontend = data; // 将数据存储在全局变量中
+                // 在接收到终端响应后再刷新页面
+                socket.onmessage = function(event) {
+                    // 处理终端响应
+                    console.log("收到终端响应:", event.data);
+                    location.reload(); // 刷新页面
+                };
+
+                socket.send(data);
+                };
+            });
+        document.getElementById("teach").addEventListener("click",function(){
+            const socket =new WebSocket("ws://localhost:8767");
+            socket.onopen = function(){
+                //发送参数给终端
+                console.log("已连接");
+                const data = "4";
+                dataFromFrontend = data; // 将数据存储在全局变量中
+                // 在接收到终端响应后再刷新页面
+                socket.onmessage = function(event) {
+                    // 处理终端响应
+                    console.log("收到终端响应:", event.data);
+                    location.reload(); // 刷新页面
+                };
+
+                socket.send(data);
+                };
+            });
+        // 结束弹窗按钮
+        document.getElementById("done-yes").addEventListener("click",function(){
+                //刷新页面（即也清空了之前的数据）
+                location.reload();
+        })
+        document.getElementById("done-break").addEventListener("click",function(){
+                //刷新页面（即也清空了之前的数据）
+                location.reload();
+        })
+
+    </script>
+
+    <script>//网页弹窗
+        function set(a){
+            alert(a)
+        }
+    </script>
+
+    <script>
+        // 获取按钮元素
+        var startButton = document.getElementById("startButton");
+        // 添加点击事件处理程序
+        startButton.addEventListener("click", function() {
+        // 当按钮被点击时调用 executeMyCode 函数
+        executeMyCode();
+        });
+
+        // 将 JavaScript 代码包装在一个函数中，以便在点击按钮时调用
+        function executeMyCode() {
+        // 在这里放置 JavaScript 代码
+        console.log("开始执行...");
+        // 代码...
+        
+        if ((dataFromFrontend === "1") || (dataFromFrontend==="2")) {
+            // 执行某些操作
+            console.log("执行手势检测模式");
+                    // 存储图片信息的数组
+        const images = [
+            { path: './picture/eUp.jpg', index: 0 },
+            { path: './picture/eDown.jpg', index: 1 },
+            { path: './picture/eLeft.jpg', index: 2 },
+            { path: './picture/eRight.jpg', index: 3 },
+        ];
+
+        const images1=[
+            {path: './picture/true.png',index:0},
+            {path: './picture/false.png',index:1}
+        ]
+        // 上一张图片的索引
+        let lastIndex = '-1';
+        // 显示图片的函数
+        function showImage() {
+            // 生成随机索引，确保与上一张不同
+            // let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * images.length);
+            } while (randomIndex === lastIndex);
+            console.log(randomIndex)
+            // 更新上一张图片的索引
+            lastIndex = randomIndex;
+            
+            // 获取当前应该显示的图片路径
+            const imagePath = images[randomIndex].path;
+            // 在页面中显示图片，这里假设有一个名为 'image-container' 的 div 用于显示图片
+            document.getElementById('image-container').src = imagePath;
+            // 在页面中显示图片，这里假设有一个名为 'image-container' 的 div 用于显示图片
+            const imageElement = document.getElementById('image-container');
+        }
+        // 定时切换图片
+        setInterval(showImage, 5000);
+        // 初始化显示第一张图片,调用函数
+        showImage();
+        // 获取图片元素
+        var imgElement = document.getElementById("image-container");
+
+        // 修改图片大小
+        imgElement.style.width = `${width}`;
+        imgElement.style.height = `${width}`;
+
+        const socket = new WebSocket('ws://localhost:8765');
+
+        // 监听来自服务器的消息
+        socket.addEventListener('message', function(event) {
+            console.log('value:', event.data);
+            const value = event.data;
+            if (value!="None"){
+                if (value===String(randomIndex)){
+                console.log("yes");
+                correct_count +=1;
+                document.getElementById('image-container').src = "./picture/true.png";
+
+            }
+            else if (value!=String(randomIndex)){
+                console.log("No");
+                wrong_count += 1;
+                document.getElementById('image-container').src = "./picture/false.png";
+            }
+
+        // console.log(typeof event.data); // 输出 event.data 的数据类型
+        // console.log(typeof randomIndex); // 输出 randomIndex 的数据类型    
+            
+            if ((correct_count >= 2) && (0 < current_size_index && current_size_index <13))
+            {   
+                level += 1
+                // 修改变量的值
+                level1 = `level:${level/10}`;
+                // 更新 h1 标签的内容，显示新的标题
+                document.getElementById("level").innerText = level1;
+                // 修改变量的值
+                pageTitle = `您的视力值为${level/10}`;
+                // 更新 h1 标签的内容，显示新的标题
+                document.getElementById("pageTitle").innerText = pageTitle;
+                current_size_index += 1
+                width = size[current_size_index]
+                console.log("width",width)
+                console.log('current_size_index',current_size_index)
+                console.log("count[current_size_index]",count[current_size_index])
+                // 获取图片元素
+                var imgElement = document.getElementById("image-container");
+                // 修改图片大小
+                imgElement.style.width = `${width}`;
+                imgElement.style.height = `${width}`;
+                correct_count = 0
+                count[current_size_index] += 1//对了才+1
+                if (count[current_size_index] >= 2){
+                    level -=1
+                    // 修改变量的值
+                    level1 = `level:${level/10}`;
+                    // 更新 h1 标签的内容，显示新的标题
+                    document.getElementById("level").innerText = level1;
+                    // 修改变量的值
+                    pageTitle = `您的视力值为${level/10}`;
+                    // 更新 h1 标签的内容，显示新的标题
+                    document.getElementById("pageTitle").innerText = pageTitle;
+                }
+                    
+            }
+            if ((wrong_count >= 2) && (current_size_index > 0))
+            {
+                level -= 1
+                level1 = `level:${level/10}`;
+
+                // 更新 h1 标签的内容，显示新的标题
+                document.getElementById("level").innerText = level1;
+                current_size_index -= 1
+                width = size[current_size_index]
+                console.log("width",width)
+                console.log('current_size_index',current_size_index)
+                console.log("count[current_size_index]",count[current_size_index])
+                // 获取图片元素
+                var imgElement = document.getElementById("image-container");
+
+                // 修改图片大小
+                imgElement.style.width = `${width}`;
+                imgElement.style.height = `${width}`;
+                wrong_count = 0
+            } 
+                }
+
+
+            
+            var modal = document.getElementById("myModal");
+            var span = document.getElementsByClassName("close")[0];
+            
+            // Get the button that opens the modal
+            var btn_break = document.getElementById("break");
+
+            // When the user clicks the button, open the modal 
+            btn_break.onclick = function() {
+                modal.style.display = "block";
+                // 修改变量的值
+                pageTitle = "您已提前结束！期待你的下一次使用！";
+                // pageTitle="您的视力值为[4.7]"
+                // 更新 h1 标签的内容，显示新的标题
+                document.getElementById("pageTitle").innerText = pageTitle;
+
+                // 修改变量的值
+                p = "您未完成完成是视力检测哦！";
+                // p = "您已完成完成是视力检测！";
+                // 更新 h1 标签的内容，显示新的标题
+                document.getElementById("p").innerText = p;
+            }
+
+            //显示level
+            if ((current_size_index == 13 && correct_count==2) || (current_size_index == 0 && correct_count==2) || (count[current_size_index]==2)){
+                console.log("break")
+                //显示
+                modal.style.display = "block";
+                // 定义关闭模态框的函数
+                function closeModal() {
+                    modal.style.display = "none";
+                    //刷新页面（即也清空了之前的数据），关闭同时刷新
+                    location.reload();
+                }
+                // 关闭按钮点击事件
+                span.onclick = closeModal;
+                // 当用户点击模态框外部时，关闭模态框
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        closeModal();
+                    }
+                }
+            }
+        });
+
+        }
+
+        if (dataFromFrontend === "3"){
+        // 执行某些操作
+        console.log("执行3语音模式");
+                    // 存储图片信息的数组
+        const images = [
+            { path: './picture/eUp.jpg', index: 0 },
+            { path: './picture/eDown.jpg', index: 1 },
+            { path: './picture/eLeft.jpg', index: 2 },
+            { path: './picture/eRight.jpg', index: 3 },
+        ];
+
+        const images1=[
+            {path: './picture/true.png',index:0},
+            {path: './picture/false.png',index:1}
+        ]
+        // 上一张图片的索引
+        let lastIndex = '-1';
+        // 显示图片的函数
+        function showImage() {
+            // 生成随机索引，确保与上一张不同
+            // let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * images.length);
+            } while (randomIndex === lastIndex);
+            console.log(randomIndex)
+            // 更新上一张图片的索引
+            lastIndex = randomIndex;
+            // 获取当前应该显示的图片路径
+            const imagePath = images[randomIndex].path;
+            // 在页面中显示图片
+            document.getElementById('image-container').src = imagePath;
+            // 在页面中显示图片
+            const imageElement = document.getElementById('image-container');
+        }
+        // 定时切换图片
+        setInterval(showImage, 5000);
+        // 初始化显示第一张图片,调用函数
+        showImage();
+        // 获取图片元素
+        var imgElement = document.getElementById("image-container");
+
+        // 修改图片大小
+        imgElement.style.width = `${width}`;
+        imgElement.style.height = `${width}`;
+
+        const socket = new WebSocket('ws://localhost:8768');
+
+        // 监听来自服务器的消息
+        socket.addEventListener('message', function(event) {
+            console.log('value:', event.data);
+            let value = event.data
+            if (value!="None"){
+                if (value===String(randomIndex)){
+                console.log("yes");
+                correct_count +=1;
+                document.getElementById('image-container').src = "./picture/true.png";
+
+                }
+                else if (value!=String(randomIndex)){
+                    console.log("No");
+                    wrong_count += 1;
+                    document.getElementById('image-container').src = "./picture/false.png";
+                }
+
+        // console.log(typeof event.data); // 输出 event.data 的数据类型
+        // console.log(typeof randomIndex); // 输出 randomIndex 的数据类型    
+            
+            if ((correct_count >= 2) && (0 < current_size_index && current_size_index <13))
+            {   
+                level += 1
+                // 修改变量的值
+                level1 = `level:${level/10}`;
+                // 更新 h1 标签的内容，显示新的标题
+                document.getElementById("level").innerText = level1;
+                // 修改变量的值
+                pageTitle = `您的视力值为${level/10}`;
+                // 更新 h1 标签的内容，显示新的标题
+                document.getElementById("pageTitle").innerText = pageTitle;
+                current_size_index += 1
+                width = size[current_size_index]
+                console.log("width",width)
+                console.log('current_size_index',current_size_index)
+                console.log("count[current_size_index]",count[current_size_index])
+                // 获取图片元素
+                var imgElement = document.getElementById("image-container");
+                // 修改图片大小
+                imgElement.style.width = `${width}`;
+                imgElement.style.height = `${width}`;
+                correct_count = 0
+                count[current_size_index] += 1//对了才+1
+                if (count[current_size_index] >= 2){
+                    level -=1
+                    // 修改变量的值
+                    level1 = `level:${level/10}`;
+                    // 更新 h1 标签的内容，显示新的标题
+                    document.getElementById("level").innerText = level1;
+                    // 修改变量的值
+                    pageTitle = `您的视力值为${level/10}`;
+                    // 更新 h1 标签的内容，显示新的标题
+                    document.getElementById("pageTitle").innerText = pageTitle;
+                }
+                    
+            }
+            if ((wrong_count >= 2) && (current_size_index > 0))
+            {
+                level -= 1
+                level1 = `level:${level/10}`;
+
+                // 更新 h1 标签的内容，显示新的标题
+                document.getElementById("level").innerText = level1;
+                current_size_index -= 1
+                width = size[current_size_index]
+                console.log("width",width)
+                console.log('current_size_index',current_size_index)
+                console.log("count[current_size_index]",count[current_size_index])
+                // 获取图片元素
+                var imgElement = document.getElementById("image-container");
+
+                // 修改图片大小
+                imgElement.style.width = `${width}`;
+                imgElement.style.height = `${width}`;
+                wrong_count = 0
+            } 
+                }
+
+
+            
+            var modal = document.getElementById("myModal");
+            var span = document.getElementsByClassName("close")[0];
+            
+            // Get the button that opens the modal
+            var btn_break = document.getElementById("break");
+
+            // When the user clicks the button, open the modal 
+            btn_break.onclick = function() {
+                modal.style.display = "block";
+                // 修改变量的值
+                pageTitle = "您已提前结束！期待你的下一次使用！";
+                // pageTitle="您的视力值为[4.7]"
+                // 更新 h1 标签的内容，显示新的标题
+                document.getElementById("pageTitle").innerText = pageTitle;
+
+                // 修改变量的值
+                p = "您未完成完成是视力检测哦！";
+                // p = "您已完成完成是视力检测！";
+                // 更新 h1 标签的内容，显示新的标题
+                document.getElementById("p").innerText = p;
+            }
+
+            //显示level
+            if ((current_size_index == 13 && correct_count==2) || (current_size_index == 0 && correct_count==2) || (count[current_size_index]==2)){
+                console.log("break")
+                //显示
+                modal.style.display = "block";
+                // 定义关闭模态框的函数
+                function closeModal() {
+                    modal.style.display = "none";
+                    //刷新页面（即也清空了之前的数据），关闭同时刷新
+                    location.reload();
+                }
+                // 关闭按钮点击事件
+                span.onclick = closeModal;
+                // 当用户点击模态框外部时，关闭模态框
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        closeModal();
+                    }
+                }
+                
+            }
+        });
+        }
+
+        if (dataFromFrontend === "4") {
+            var modal = document.getElementById("myModal");
+            var span = document.getElementsByClassName("close")[0];
+            const speak=["如果你想表示向上，请将你的右手向正上方伸直",
+                        "如果你想表示向下，请将你的右手向下伸直，稍稍远离身体",
+                        "如果你想表示向左，请将你的右手向左水平伸直",
+                        "如果你想表示向右，请将你的右手向右水平伸直",
+                    ];
+            let speakIndex=0;
+            let experience = 0;
+
+            console.log("执行4示教模式");
+
+            const socket = new WebSocket('ws://localhost:8765');
+
+            const images = [
+                { path: './picture/eUp.jpg', index: 0 },
+                { path: './picture/eDown.jpg', index: 1 },
+                { path: './picture/eLeft.jpg', index: 2 },
+                { path: './picture/eRight.jpg', index: 3 },
+            ];
+
+            // 初始化显示第一张图片
+            let currentIndex = 0;
+            document.getElementById('image-container').src = images[currentIndex].path;
+                    // 检测浏览器是否支持语音合成
+            if ('speechSynthesis' in window) {
+                // 创建语音合成对象
+                const synthesis = window.speechSynthesis;
+                // 定义要说的文本
+                let textToSpeak = speak[speakIndex];
+                // 定义要说的语音配置
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = 'zh-CN'; // 设置语音合成语言为中文
+                // 检查条件，满足条件则进行语音合成
+                synthesis.speak(utterance); // 开始语音合成     
+            } else {
+                console.error('抱歉，您的浏览器不支持语音合成功能。');
+            }
+                // 监听来自服务器的消息
+                socket.addEventListener('message', function (event) {
+                    console.log('value:', event.data);
+                    const value = event.data;
+            if (value === String(currentIndex)) {
+                // currentIndex = (currentIndex + 1) % images.length;
+                //防止超出索引，加上判断，小于3才可以加
+                if (currentIndex<3){
+                    currentIndex+=1;
+                    speakIndex+=1;
+                }
+                experience += 1;
+                let imagePath = images[currentIndex].path;
+                document.getElementById('image-container').src = imagePath;
+                // document.getElementById('image-container').src = images[currentIndex].path;
+                // 检测浏览器是否支持语音合成
+                if ('speechSynthesis' in window) {
+                // 创建语音合成对象
+                const synthesis = window.speechSynthesis;
+                // 定义要说的文本
+                let textToSpeak = speak[speakIndex];
+                if (experience==4){
+                    textToSpeak = "示教结束";
+                }
+                // 定义要说的语音配置
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = 'zh-CN'; // 设置语音合成语言为中文
+                // 检查条件，满足条件则进行语音合成
+                synthesis.speak(utterance); // 开始语音合成
+    
+                
+                } else {
+                console.error('抱歉，您的浏览器不支持语音合成功能。');
+                }
+
+                // 显示弹窗的条件：经验值达到3且当前索引为3（即显示第四张图）
+                if (experience === 4) {
+                    modal.style.display = "block";
+                    pageTitle = "您已掌握手势检测模式的使用方法！现在，让我们一开始检测视力吧！";
+                    document.getElementById("pageTitle").innerText = pageTitle;
+                    p = "您已完成完成示教！";
+                    document.getElementById("p").innerText = p;
+                }
+            }
+            });
+
+            function displayModal() {
+                modal.style.display = "block";
+
+                // 修改变量的值
+                pageTitle = "您已提前结束！期待你的下一次使用！";
+                // 更新 h1 标签的内容，显示新的标题
+                document.getElementById("pageTitle").innerText = pageTitle;
+
+                // 修改变量的值
+                p = "您未完成完成是视力检测哦！";
+                // 更新 h1 标签的内容，显示新的标题
+                document.getElementById("p").innerText = p;
+
+                // 定义关闭模态框的函数
+                function closeModal() {
+                    modal.style.display = "none";
+                    // 刷新页面（即也清空了之前的数据），关闭同时刷新
+                    location.reload();
+                }
+
+                // 关闭按钮点击事件
+                span.onclick = closeModal;
+
+                // 当用户点击模态框外部时，关闭模态框
+                window.onclick = function (event) {
+                    if (event.target == modal) {
+                        closeModal();
+                    }
+                }
+            }
+        }
+    }
+    </script>
+    
+    <script>
+
+        // 使用 JavaScript 接收并显示视频流
+        const videoContainer = document.getElementById('video');
+        const websocket = new WebSocket('ws://localhost:8766');
+        let intervalId; // 用于存储 setInterval 返回的 ID
+
+        websocket.onmessage = function(event) {
+            const img = document.createElement('img');
+            img.src = 'data:image/jpeg;base64,' + event.data;
+            videoContainer.innerHTML = '';
+            videoContainer.appendChild(img);
+            
+        };
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+.Container{
+    position: absolute;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-image: url(./picture-css/background4-1.png);
+    /* background-image: url(./picture-css/background4.jpg); */
+    background-size: cover;/*会被拉伸或压缩以填充整个背景区域,可能部分裁剪掉 */
+    /* background-size: contain; */
+    /* 将亮度增加到150% */
+    /* filter: brightness(1.2);  */
+    background-repeat: no-repeat;/*不会在页面上重复出现*/
+    background-position: center;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+}
+
+#video_container {
+    flex: 30%;
+    width: 30%;
+    margin-bottom: 3%;
+    margin-left: 3%;
+}
+
+#image-container {
+    width: 50%;
+    height: 50%;
+    float: left;
+}
+
+
+.container{
+    height:100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+
+}
+.picture{
+    background-color: #fff;
+    flex: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 20%; */
+    height: 75%;
+    margin-top: 6%;
+    margin-left: 2%;
+
+}
+
+
+.video{
+    flex: 40%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 3%;
+    margin: 3%;
+    justify-content: center;
+}
+
+.model-box h1{
+    display: flex;
+    color: #fff;
+    text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em blue;
+    font-size: 55px;
+    /* 子元素在垂直方向从上到下排列 */
+    /* flex-direction: column; */
+    /* margin-top: 130px; */
+    
+}
+
+.model-box{
+    background-color: #00000068;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 23%;
+    height: 100%;
+}
+
+/* 按钮字体大小 */
+.model-box button{
+    font-size: 30px;
+}
+
+.model-box button{
+    margin-top: 40px;
+    width: 300px;
+    height: 75px;
+    background-color: #fff;
+    border-radius: 20px;
+    outline: none;
+    color: #fff;
+    background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
+}
+.model-box button:hover{
+    background-image: linear-gradient(to right, #92fe9d 0%, #00c9ff 100%);
+    scale: 1.05;
+}
+
+.box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.box2{
+    /* flex: 15%; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+/* 弹窗 */
+.modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 999;
+    padding-top: 10vh;
+}
+
+.modal-content {
+    position: relative;
+    /* background-color: #fefefe; */
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: auto;
+    /* 边框 */
+    /* border: 1px solid #888; */
+    border-radius: 20px;
+    width: 60%;
+    height: 80%;
+    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2);
+}
+
+
+.content {
+    display: flex; /* 使用 Flexbox 布局 */
+    align-items: center; /* 在交叉轴上居中对齐 */
+    justify-items: center;
+    flex-direction: column;
+    /* height: 50vh; */
+    padding: auto 10%;
+}
+/* 弹窗的文本字体设置 */
+/* 标题 */
+.content h1{
+    font-size: 50px;
+    color: rgb(255, 251, 43);
+}
+/* zhe */
+/* .content h3{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 40px;
+} */
+#p{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+}
+.content h2{
+    font-size: 45px;
+}
+#pageTitle{
+    color: rgb(255, 255, 255);
+}
+.content img{
+    height: 330px;
+    /* width: 700px; */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    /* background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); */
+    background-image: linear-gradient(to top, rgba(230, 233, 240, 0.8) 0%, rgba(238, 241, 245, 0.7) 100%);
+    border-radius:15px;
+}
+.content button{
+    height: 65px;
+    width: 180px;
+}
+
+button{
+    margin: 15px;
+    width: 250px;
+    height: 75px;
+    border-radius: 20px;
+    justify-content: space-evenly;
+    color: #fff;
+    background-image: linear-gradient(to top, #7028e4 0%, #e5b2ca 100%);
+
+}
+#btn-2 button{
+        width: 300px;
+        height: 60px;
+        background-image: linear-gradient(-225deg, #DFFFCD 0%, #90F9C4 48%, #39F3BB 100%);
+        border-radius: 20px;
+        outline: none;
+        color: #fff;
+}
+
+#start{
+    background-image: linear-gradient(to top, #075433 0%, #18ac7d 100%);
+}
+#start:hover{
+    background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+    scale: 1.05;
+}
+#break{
+    background-image: linear-gradient(to top, #cc1961 0%, #ee6f61 100%);
+}
+#break:hover{
+    background-image: linear-gradient(120deg, #f6a665 0%, #f34741 100%);
+    scale: 1.05;
+}
+
+/* 按钮字体大小 */
+button{
+    font-size: 35px;
+}
+
+button:hover{
+    /* background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%); */
+    background-image: linear-gradient(to right, #92fe9d 0%, #00c9ff 100%);
+    scale: 1.05;
+}
+
+.score{
+    /* flex: 25%; */
+    background-color: rgba(0,0,0,0.5);
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-right: 4%;
+    margin-left: 2%;
+    border-radius: 30px;
+}
+
+  
+
+#level{
+    font-size: 90px;
+    color: #f9f586;
+    text-align: center;
+    text-shadow: #FC0 1px 0 30px;
+}
+
